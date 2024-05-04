@@ -32,7 +32,7 @@ public class LoginService implements ILoginService {
 
 	@Override
 	public void login(PersonDto personDto) throws Exception {
-		PersonDto personDtoValidate = personDao.findUserByUserName(personDto);
+		PersonDto personDtoValidate = personDao.findUserByUserName(personDto.getUsername());
 		if (personDtoValidate == null) {
 			throw new Exception("usuario no valido");
 		}
@@ -47,7 +47,6 @@ public class LoginService implements ILoginService {
 
 	@Override
 	public void logout() throws Exception {
-		LoginDao loginDao = new LoginDao();
 		loginDao.logout(sessionId);
 		setSesionID(0);
 		

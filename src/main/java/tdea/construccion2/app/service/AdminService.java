@@ -13,8 +13,9 @@ import tdea.construccion2.app.dto.SessionDto;
 
 @Service
 public class AdminService implements IAdminService,ILoginService{
-	List<Integer> roles = Arrays.asList(01,02,03,04);
-	private static long sessionId = 0L;
+	List<Integer> roles = Arrays.asList(1,2,3);
+	
+	private long sessionId = 0L;
 	@Autowired
 	private PersonDao personDao; 
 	@Autowired
@@ -28,7 +29,7 @@ public class AdminService implements IAdminService,ILoginService{
 		if (personDao.findUserExistById(personDto.getId())) {
 			throw new Exception("ya existe un usuario con esa cedula");
 		}
-		if (personDao.existUserByUserName(personDto)) {
+		if (personDao.findUserByUserName(personDto.getUsername()) != null) {
 			throw new Exception("ya existe el usuario");
 		}
 		personDao.createPerson(personDto);
@@ -43,7 +44,7 @@ public class AdminService implements IAdminService,ILoginService{
 
 	@Override
 	public void login(PersonDto personDto) throws Exception {
-		PersonDto personDtoValidate = personDao.findUserByUserName(personDto);
+		PersonDto personDtoValidate = personDao.findUserByUserName(personDto.getUsername());
 		if (personDtoValidate == null) {
 			throw new Exception("usuario no valido");
 		}

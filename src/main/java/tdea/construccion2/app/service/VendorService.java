@@ -8,6 +8,7 @@ import tdea.construccion2.app.dao.OrderDao;
 import tdea.construccion2.app.dao.PersonDao;
 import tdea.construccion2.app.dao.SailDao;
 import tdea.construccion2.app.dto.BillDto;
+import tdea.construccion2.app.dto.OrderDto;
 import tdea.construccion2.app.dto.PersonDto;
 import tdea.construccion2.app.dto.SessionDto;
 
@@ -32,9 +33,12 @@ public class VendorService implements IVendorService{
 			throw new Exception("no hay una sesion valida");
 		}
 		PersonDto personDto = new PersonDto(sessionDto.getUserName(), "");
-		personDto = personDao.findUserByUserName(personDto);
+		personDto = personDao.findUserByUserName(personDto.getUsername());
 		if (personDto == null) {
 			throw new Exception("no hay un usuario valido");
+		}
+		if(personDto.getRoleId() != 2) {
+			throw new Exception("No tiene permiso para realizar esta accion");
 		}
 	}
 	
@@ -46,8 +50,16 @@ public class VendorService implements IVendorService{
 
 	@Override
 	public String seeOrderById(int id) throws Exception {
-		this.validateSessionAndUser();
-		return orderDao.seeOrder(id);
+	    this.validateSessionAndUser();
+	    OrderDto orderDto = null; 
+
+	    if (orderDao.existOrder(id)) {
+	        orderDto = orderDao.findOrderById(id);
+	    } else {
+	        throw new Exception("La orden no existe");
+	    }
+
+	    return orderDto.toString();
 	}
 
 	public PersonDao getPersonDao() {

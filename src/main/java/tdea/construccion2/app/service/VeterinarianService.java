@@ -27,6 +27,8 @@ public class VeterinarianService implements IClinicHistoryService, IPetService, 
 	private ClinicHistoryDao clinicHistoryDao;
 	@Autowired
 	private LoginService loginService;
+	@Autowired
+	private PersonDao personDao;
 
 	@Override
 	public int createOrder(OrderDto orderdto) throws Exception {
@@ -39,14 +41,23 @@ public class VeterinarianService implements IClinicHistoryService, IPetService, 
 	@Override
 	public void cancelOrder(int id) throws Exception {
 		this.validateSessionAndUser();
-		orderDao.cancelOrder(id);
+		if(orderDao.existOrder(id)) {
+		   OrderDto orderDto = orderDao.findOrderById(id);
+	        if (!orderDto.getIs_canceled()) {
+	        	orderDto.setIs_canceled(true);
+	        	orderDao.cancelOrder(id);
+	        }else {
+	        	throw new Exception("la orden ya ha sido cancelada anteriormente");
+	        }
+		}else {
+			throw new Exception("la orden no pudo ser cancelada porque no existe");
+		}
 		System.out.println("se ha cancelado la orden #" + id);
 	}
 
 	@Override
 	public void createPet(PetDto petDto) throws Exception {
 		this.validateSessionAndUser();
-		PersonDao personDao = new PersonDao();
 		boolean ownerExist = personDao.findUserExistById(petDto.getOwnerId()); 
 		if(!ownerExist) {
 			throw new Exception("el dueño no existe");
@@ -60,11 +71,13 @@ public class VeterinarianService implements IClinicHistoryService, IPetService, 
 		if (sessionDto == null) {
 			throw new Exception("no hay una sesion valida");
 		}
-		PersonDao personDao = new PersonDao();
 		PersonDto personDto = new PersonDto(sessionDto.getUserName(), "");
-		personDto = personDao.findUserByUserName(personDto);
+		personDto = personDao.findUserByUserName(personDto.getUsername());
 		if (personDto == null) {
 			throw new Exception("no hay un usuario valido");
+		}
+		if(personDto.getRoleId() != 3) {
+			throw new Exception("No tiene permiso para realizar esta accion");
 		}
 	}
 
@@ -72,7 +85,7 @@ public class VeterinarianService implements IClinicHistoryService, IPetService, 
 	public void CreateClinicHistory(ClinicHistoryDto clinichistorydto) throws Exception {
 		this.validateSessionAndUser();
 		clinicHistoryDao.CreateClinicHistory(clinichistorydto);
-		System.out.println("se ha creao la historia clinica de la mascota");
+		System.out.println("se ha creado la historia clinica de la mascota");
 	}
 
 	@Override
@@ -91,13 +104,29 @@ public class VeterinarianService implements IClinicHistoryService, IPetService, 
 	@Override
 	public String getHistoryClinicDetails(int id) throws Exception {
 		this.validateSessionAndUser();
-		return clinicHistoryDao.getHistoryClinicDetails(id);
+		ClinicHistoryDto clinicHistoryDto = null; 
+
+	    if (clinicHistoryDao.existClinicHistory(id)) {
+			clinicHistoryDto  = clinicHistoryDao.findClinicHistoryById(id);
+	    } else {
+	        throw new Exception("La historia clinica no existe");
+	    }
+
+	    return clinicHistoryDto.toString();
 	}
 
 	@Override
 	public String seeOrder(int id) throws Exception {
 		this.validateSessionAndUser();
-		return orderDao.seeOrder(id);
+		OrderDto orderDto = null; 
+	
+	    if (orderDao.existOrder(id)) {
+	        orderDto = orderDao.findOrderById(id);
+	    } else {
+	        throw new Exception("La orden no existe");
+	    }
+
+	    return orderDto.toString();
 	}
 
 }

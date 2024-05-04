@@ -8,4 +8,5 @@ import tdea.construccion2.app.models.Person;
 @Repository
 public interface IPersonRepository extends JpaRepository<Person,Long> {
 	 public Person findByUsername(String username);
+	 public boolean existsById(Long id);
 }

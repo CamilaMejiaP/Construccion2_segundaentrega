@@ -1,5 +1,7 @@
 package tdea.construccion2.app.dao;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,35 +16,41 @@ public class PersonDao implements IPersonDao {
 	private IPersonRepository personRepository;
 	
 	@Override
-	public void createPerson(PersonDto personDto) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public PersonDto createPerson(PersonDto personDto) throws Exception {
+		Person person = new Person();
+		person.setId(personDto.getId());
+		person.setName(personDto.getName());
+		person.setUsername(personDto.getUsername());
+		person.setAge(personDto.getAge());
+		person.setPassword(personDto.getPassword());
+		person.setRoleId(personDto.getRoleId());
+		personRepository.save(person);
+		return new PersonDto(person);		
 	}
 
 	@Override
-	public boolean findUserExistById(long id) throws Exception {
-		return false;
-		
+	public boolean findUserExistById(long id) throws Exception {	
+		 return personRepository.existsById(id);	
 	}
 
 	@Override
-	public PersonDto findUserById(PersonDto personDto) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public PersonDto findUserById(Long id) throws Exception {
+	    Optional<Person> optionalPerson = personRepository.findById(id);
+	    
+	    if (optionalPerson.isPresent()) {
+	        Person person = optionalPerson.get();
+	        return new PersonDto(person);
+	    } else {
+	        return null;
+	    }
 	}
 	@Override
-	public PersonDto findUserByUserName(PersonDto personDto) throws Exception {
-		Person person = personRepository.findByUsername(personDto.getUsername());
+	public PersonDto findUserByUserName(String username) throws Exception {
+		Person person = personRepository.findByUsername(username);
 		if(person == null) {
 			return null;
 		}
 		return new PersonDto(person);
-	}
-	
-	@Override
-	public boolean existUserByUserName(PersonDto personDto) throws Exception {
-		return false;
-	
 	}
 
 	public IPersonRepository getPersonRepository() {

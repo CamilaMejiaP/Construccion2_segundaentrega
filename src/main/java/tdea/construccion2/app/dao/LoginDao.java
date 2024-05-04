@@ -1,5 +1,7 @@
 package tdea.construccion2.app.dao;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +27,19 @@ public class LoginDao implements ILoginDao{
 
 	@Override
 	public void logout(long sessionId) throws Exception {
-		
+		sessionRepository.deleteById(sessionId);
 	}
 
 	@Override
 	public SessionDto findSessionById(long sessionId)throws Exception {
-		return null;		
+	   Optional<Session> optionalSession = sessionRepository.findById(sessionId);
+	    
+	    if (optionalSession.isPresent()) {
+	        Session session = optionalSession.get();
+	        return new SessionDto(session);
+	    } else {
+	        return null;
+	    }
 	}
 
 }
