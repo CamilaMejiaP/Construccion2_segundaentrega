@@ -19,7 +19,6 @@ public class OrderDao implements IOrderDao {
 		order.setOwnerId(orderdto.getOwnerId());
 		order.setPetId(orderdto.getPetId());
 		order.setVeterinarianID(orderdto.getVeterinarianID());
-		order.setIs_canceled(false);
 		Order savedOrder = orderRepository.save(order);
 		return savedOrder.getId();		
 	}

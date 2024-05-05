@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -42,6 +43,7 @@ public class ClinicHistory {
 	private String dosis;
 	
 	@Column(name = "order_id")
+	@JoinColumn(name = "order_id", nullable = true)
 	private int orderId;
 	
 	@Column(name = "vaccination_history")

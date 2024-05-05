@@ -26,6 +26,7 @@ public class ClinicHistoryDao implements IClinicHistory{
 		clinicHistory.setAnulation(clinichistorydto.getAnulation());
 		clinicHistory.setOrderId(clinichistorydto.getOrderId());
 		clinicHistory.setVeterinarianId(clinichistorydto.getVeterinarianId());
+		clinicHistory.setRegisterDate(clinichistorydto.getRegisterDate());
 		clinicHistoryRepository.save(clinicHistory);
 		return new ClinicHistoryDto(clinicHistory);
 	}
@@ -44,7 +45,7 @@ public class ClinicHistoryDao implements IClinicHistory{
         clinicHistory.setAnulation(clinichistorydto.getAnulation());
         clinicHistory.setOrderId(clinichistorydto.getOrderId());
         clinicHistory.setVeterinarianId(clinichistorydto.getVeterinarianId());
-       
+        clinicHistory.setRegisterDate(clinichistorydto.getRegisterDate());
         clinicHistory = clinicHistoryRepository.save(clinicHistory);
         return new ClinicHistoryDto(clinicHistory);
 	}

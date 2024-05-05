@@ -18,7 +18,8 @@ public class VendorController {
 	@Autowired
 	private BillInputsValidator billValidator;
 	@Autowired
-	private static VendorService vendorService;
+	private VendorService vendorService;
+	
 	private final String MENU = "ingrese\n1.Para generar venta\\n2.Buscar orden\n4.Para cerrar Sesion";
 	
 	private void createSale() throws Exception {
@@ -107,12 +108,14 @@ public class VendorController {
 		this.billValidator = billValidator;
 	}
 
-	public static VendorService getVendorService() {
+	public VendorService getVendorService() {
 		return vendorService;
 	}
 
-	public static void setVendorService(VendorService vendorService) {
-		VendorController.vendorService = vendorService;
+	public void setVendorService(VendorService vendorService) {
+		this.vendorService = vendorService;
 	}
+
+	
 	
 }

@@ -1,5 +1,7 @@
 package tdea.construccion2.app.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import tdea.construccion2.app.dto.OrderDto;
 import tdea.construccion2.app.dto.PersonDto;
 import tdea.construccion2.app.dto.PetDto;
 import tdea.construccion2.app.dto.SessionDto;
+import tdea.construccion2.app.models.Pet;
 
 @Service
 public class VeterinarianService implements IClinicHistoryService, IPetService, IOrderService {
@@ -63,7 +66,7 @@ public class VeterinarianService implements IClinicHistoryService, IPetService, 
 			throw new Exception("el dueño no existe");
 		}
 		petDao.createPet(petDto);
-		System.out.println("se ha creado la mascota");
+		System.out.println("se ha creado la mascota:" + "nombre:" + petDto.getName());
 	}
 	
 	private void validateSessionAndUser() throws Exception {

@@ -40,7 +40,7 @@ public class ClinicHistoryDto {
 
 	public ClinicHistoryDto(ClinicHistory clinichistory){
 		this.id = clinichistory.getId();
-		this.registerDate = clinichistory.getRegisterDate();
+		this.registerDate = new Date(System.currentTimeMillis());
 		this.veterinarianId = clinichistory.getVeterinarianId();
 		this.reason = clinichistory.getReason();
 		this.symptoms = clinichistory.getSymptoms();
@@ -49,8 +49,8 @@ public class ClinicHistoryDto {
 		this.medicines = clinichistory.getMedicines();
 		this.dosis = clinichistory.getDosis();
 		this.orderId = clinichistory.getOrderId();
-		this.vaccionationHistory = clinichistory.getVaccionationHistory();
-		this.details = clinichistory.getDetails();
+		this.vaccionationHistory = clinichistory.getVaccionationHistory() != null ? clinichistory.getVaccionationHistory() : "n/a";
+	    this.details = clinichistory.getDetails();
 		this.anulation = clinichistory.getAnulation();
 	}
 	

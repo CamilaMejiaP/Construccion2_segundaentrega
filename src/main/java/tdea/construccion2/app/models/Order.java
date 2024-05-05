@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="order")
+@Table(name = "order", catalog = "Veterinary")
 public class Order {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -37,6 +37,7 @@ public class Order {
 	
 	public Order() {
 		this.generationDate=new Date(System.currentTimeMillis());
+		this.is_canceled = false;
 	}
 
 	public boolean getIs_canceled() {
