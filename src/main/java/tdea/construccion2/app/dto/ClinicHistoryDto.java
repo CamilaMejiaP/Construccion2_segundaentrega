@@ -37,6 +37,25 @@ public class ClinicHistoryDto {
 		this.dosis = dosis;
 		this.anulation = anulation;
 	}
+	
+	public ClinicHistoryDto(int id, long veterinarianId, String reason, String symptoms, String procedure,
+			String diagnostic, String medicines, String dosis, int orderId, String vaccionationHistory, String details,
+			int anulation) {
+		super();
+		this.id = id;
+		this.registerDate = new Date(System.currentTimeMillis());
+		this.veterinarianId = veterinarianId;
+		this.reason = reason;
+		this.symptoms = symptoms;
+		this.procedure = procedure;
+		this.diagnostic = diagnostic;
+		this.medicines = medicines;
+		this.orderId = orderId;
+		this.vaccionationHistory = vaccionationHistory;
+		this.details = details;
+		this.dosis = dosis;
+		this.anulation = anulation;
+	}
 
 	public ClinicHistoryDto(ClinicHistory clinichistory){
 		this.id = clinichistory.getId();

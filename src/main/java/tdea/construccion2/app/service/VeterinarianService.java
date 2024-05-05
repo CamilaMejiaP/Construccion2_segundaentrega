@@ -55,7 +55,6 @@ public class VeterinarianService implements IClinicHistoryService, IPetService, 
 		}else {
 			throw new Exception("la orden no pudo ser cancelada porque no existe");
 		}
-		System.out.println("se ha cancelado la orden #" + id);
 	}
 
 	@Override
@@ -97,7 +96,7 @@ public class VeterinarianService implements IClinicHistoryService, IPetService, 
 		boolean existClinicHistory = clinicHistoryDao.existClinicHistory(clinichistorydto.getId());
 		if(existClinicHistory) {
 			clinicHistoryDao.UpdateClinicHistory(clinichistorydto);
-			System.out.println("se ha creao la historia clinica de la mascota");
+			System.out.println("se ha actualizado la historia clinica de la mascota");
 		}else {
 			throw new Exception(" la historia clinica no existe");
 		}

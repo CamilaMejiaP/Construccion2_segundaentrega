@@ -1,4 +1,6 @@
 package tdea.construccion2.app.dao;
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +26,8 @@ public class ClinicHistoryDao implements IClinicHistory{
 		clinicHistory.setSymptoms(clinichistorydto.getSymptoms());
 		clinicHistory.setVaccionationHistory(clinichistorydto.getVaccionationHistory());
 		clinicHistory.setAnulation(clinichistorydto.getAnulation());
-		clinicHistory.setOrderId(clinichistorydto.getOrderId());
+		int orderIdValue = Objects.equals(clinichistorydto.getOrderId(), null) ? 0 : clinichistorydto.getOrderId();        
+        clinicHistory.setOrderId(orderIdValue);
 		clinicHistory.setVeterinarianId(clinichistorydto.getVeterinarianId());
 		clinicHistory.setRegisterDate(clinichistorydto.getRegisterDate());
 		clinicHistoryRepository.save(clinicHistory);
@@ -43,6 +46,8 @@ public class ClinicHistoryDao implements IClinicHistory{
         clinicHistory.setSymptoms(clinichistorydto.getSymptoms());
         clinicHistory.setVaccionationHistory(clinichistorydto.getVaccionationHistory());
         clinicHistory.setAnulation(clinichistorydto.getAnulation());
+        int orderIdValue = Objects.equals(clinichistorydto.getOrderId(), null) ? 0 : clinichistorydto.getOrderId();        
+        clinicHistory.setOrderId(orderIdValue);
         clinicHistory.setOrderId(clinichistorydto.getOrderId());
         clinicHistory.setVeterinarianId(clinichistorydto.getVeterinarianId());
         clinicHistory.setRegisterDate(clinichistorydto.getRegisterDate());
