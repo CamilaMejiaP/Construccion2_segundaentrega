@@ -20,6 +20,9 @@ public class PersonInputsValidator extends InputsValidator {
    public int intValidator(int number) throws Exception{
 	   return super.integerValidator(number, "Es id valida");
    }
+   public void rolValidator(String number) throws Exception{
+	   super.stringValidator(number, "el rol no es valido");
+   }
 }
 
 

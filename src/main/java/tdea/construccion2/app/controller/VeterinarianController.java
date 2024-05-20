@@ -27,7 +27,7 @@ public class VeterinarianController {
 	@Autowired
 	private VeterinarianService veterinarianService;
 	
-	private final String MENU = "ingrese\n1.Para registrar una mascota\n2.Para registrar una historia clinica\n3.Para consultar una historia clinica\n4.Para anular una orden\n5.Para cerrar sesion";
+	private final String MENU = "ingrese\n1.Para registrar una mascota\n2.Para registrar una historia clinica\n3.Para consultar una historia clinica\n4.Para consultar orden\n5.Para anular orden \n6.Actualizar historia\n7.salir";
 	
 
 	private boolean validateProcedure(String optionProcedure) throws Exception {
@@ -197,9 +197,7 @@ private void updatedHistory() throws Exception {
 	private void searchHistory() throws Exception {
 		System.out.println("Ingrese 1.para recetar medicamentos, 2.no recetar medicamentos");
 		int optionMedication = scanner.nextInt();
-		clinicHistoryInputsValidator.validatePrescribeMedications(optionMedication);
-		
-		
+		clinicHistoryInputsValidator.validatePrescribeMedications(optionMedication);	
 	}
 	private void searchOrder() throws Exception {
 		
